@@ -17,6 +17,8 @@ import java.util.Random;
 
 public class MyActivity extends AppCompatActivity {
 
+    private LearningNumbersModel model = new LearningNumbersModel();
+
     public int leftSide;
     public int rightSide;
     public int score = 0;
@@ -38,7 +40,25 @@ public class MyActivity extends AppCompatActivity {
             }
         });
 
-        generateNumber();
+        model.generateNumber();
+
+        Button leftButton = (Button) findViewById(R.id.number1);
+        String left = String.valueOf(model.getLeftSide());
+        leftButton.setText(left);
+
+        Button rightButton = (Button) findViewById(R.id.number2);
+        String right = String.valueOf(model.getRightSide());
+        rightButton.setText(right);
+
+        TextView scoreTracker = (TextView) findViewById(R.id.scoreNumber);
+        String scoreNumber = String.valueOf(model.getScore());
+
+        scoreTracker.setText("" + scoreNumber);
+
+        TextView gameCounter = (TextView) findViewById(R.id.gameNumber);
+        String game = String.valueOf(model.getTimesPlayed());
+        gameCounter.setText(game);
+
     }
 
     @Override
@@ -65,39 +85,13 @@ public class MyActivity extends AppCompatActivity {
 
 
 
-    public void generateNumber() {
 
-        Random random = new Random();
-
-        leftSide = random.nextInt(10)+1;
-        rightSide = random.nextInt(10)+1;
-
-        while(leftSide == rightSide) {
-
-            rightSide = random.nextInt(10) + 1;
-
-        }
-
-        Button leftButton = (Button) findViewById(R.id.number1);
-        String left = String.valueOf(leftSide);
-        leftButton.setText(left);
-
-        Button rightButton = (Button) findViewById(R.id.number2);
-        String right = String.valueOf(rightSide);
-        rightButton.setText(right);
-
-        TextView scoreTracker = (TextView) findViewById(R.id.scoreNumber);
-        String scoreNumber = String.valueOf(score);
-        scoreTracker.setText(scoreNumber);
-
-        TextView gameCounter = (TextView) findViewById(R.id.gameNumber);
-        String game = String.valueOf(timesPlayed);
-        gameCounter.setText(game);
-    }
 
     public void checkLeft(View view) {
 
-        if (leftSide > rightSide) {
+        boolean result = model.play(LearningNumbersModel.Left);
+
+        if (result) {
 
             Context context = getApplicationContext();
             CharSequence text = "Correct!";
@@ -106,11 +100,8 @@ public class MyActivity extends AppCompatActivity {
             Toast toast = Toast.makeText(context, text, duration);
             toast.show();
 
-            score++;
 
-
-        }
-        else {
+        } else {
             Context context = getApplicationContext();
             CharSequence text = "Incorrect.";
             int duration = Toast.LENGTH_SHORT;
@@ -120,13 +111,31 @@ public class MyActivity extends AppCompatActivity {
 
         }
 
-        timesPlayed++;
-        generateNumber();
+        model.generateNumber();
+        Button leftButton = (Button) findViewById(R.id.number1);
+        String left = String.valueOf(model.getLeftSide());
+        leftButton.setText(left);
+
+        Button rightButton = (Button) findViewById(R.id.number2);
+        String right = String.valueOf(model.getRightSide());
+        rightButton.setText(right);
+
+        TextView scoreTracker = (TextView) findViewById(R.id.scoreNumber);
+        String scoreNumber = String.valueOf(model.getScore());
+
+        scoreTracker.setText("" + scoreNumber);
+
+        TextView gameCounter = (TextView) findViewById(R.id.gameNumber);
+        String game = String.valueOf(model.getTimesPlayed());
+        gameCounter.setText(game);
+
     }
 
     public void checkRight(View view) {
 
-        if (leftSide < rightSide) {
+        boolean result = model.play(LearningNumbersModel.Right);
+
+        if (result) {
 
             Context context = getApplicationContext();
             CharSequence text = "Correct!";
@@ -135,7 +144,7 @@ public class MyActivity extends AppCompatActivity {
             Toast toast = Toast.makeText(context, text, duration);
             toast.show();
 
-            score++;
+
 
 
         }
@@ -148,8 +157,24 @@ public class MyActivity extends AppCompatActivity {
             toast.show();
 
         }
-        timesPlayed++;
-        generateNumber();
+
+        model.generateNumber();
+        Button leftButton = (Button) findViewById(R.id.number1);
+        String left = String.valueOf(model.getLeftSide());
+        leftButton.setText(left);
+
+        Button rightButton = (Button) findViewById(R.id.number2);
+        String right = String.valueOf(model.getRightSide());
+        rightButton.setText(right);
+
+        TextView scoreTracker = (TextView) findViewById(R.id.scoreNumber);
+        String scoreNumber = String.valueOf(model.getScore());
+
+        scoreTracker.setText("" + scoreNumber);
+
+        TextView gameCounter = (TextView) findViewById(R.id.gameNumber);
+        String game = String.valueOf(model.getTimesPlayed());
+        gameCounter.setText(game);
     }
 
 }
